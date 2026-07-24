@@ -1,0 +1,16 @@
+services:
+  edu_games-db:
+    image: postgres:17
+    container_name: edu_games-db
+    restart: always
+    environment:
+      POSTGRES_USER: edu_games
+      POSTGRES_PASSWORD: edu_games-pass
+      POSTGRES_DB: edu_games
+    ports:
+      - "5433:5432"
+    volumes:
+      - edu_games-db:/var/lib/postgresql/data
+
+volumes:
+  edu_games-db:

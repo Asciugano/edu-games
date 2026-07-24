@@ -1,0 +1,279 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id String @id @default(uuid())
+
+  name  String
+  email String @unique
+  age   Int?
+
+  level   Int @default(1)
+  totalXp Int @default(0)
+  streak  Int @default(0)
+
+  emailVerified Boolean
+  image         String?
+  imageKey      String?
+
+  role UserRole @default(USER)
+
+  lastActivityAt DateTime?
+
+  createdAt DateTime @db.Timestamptz(3)
+  updatedAt DateTime @db.Timestamptz(3)
+
+  sessions Session[]
+  accounts Account[]
+
+  gameSessions        GameSession[]
+  achievements        Achievement[]
+  dailyStats          DailyStat[]
+  userDailyChallenges UserDailyChallenge[]
+
+  @@map("user")
+}
+
+model Session {
+  id String @id @default(uuid())
+
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  token     String   @unique
+  expiresAt DateTime @db.Timestamptz(3)
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @db.Timestamptz(3)
+  updatedAt DateTime @db.Timestamptz(3)
+
+  @@map("session")
+}
+
+model Account {
+  id String @id @default(uuid())
+
+  user                  User      @relation(fields: [userId], references: [id])
+  userId                String
+  accountId             String
+  providerId            String
+  accessToken           String?
+  refreshToken          String?
+  accessTokenExpiresAt  DateTime? @db.Timestamptz(3)
+  refreshTokenExpiresAt DateTime? @db.Timestamptz(3)
+  scope                 String?
+  idToken               String?
+  password              String?
+  createdAt             DateTime  @db.Timestamptz(3)
+  updatedAt             DateTime  @db.Timestamptz(3)
+
+  @@map("account")
+}
+
+model Verification {
+  id String @id @default(uuid())
+
+  identifier String
+  value      String
+  expiresAt  DateTime @db.Timestamptz(3)
+  createdAt  DateTime @db.Timestamptz(3)
+  updatedAt  DateTime @db.Timestamptz(3)
+
+  @@map("verification")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum GameMode {
+  SINGLE
+  MIXED
+}
+
+enum ExerciseType {
+  WORD_ORDER
+  SENTENCE_ORDER
+  IMAGE_ORDER
+  COUNT_OBJECTS
+  QUANTITY_COMPARISON
+  WORD_IMAGE_MATCH
+}
+
+model GameSession {
+  id String @id @default(uuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  mode         GameMode
+  selectedGame ExerciseType?
+  score        Int           @default(0)
+  xp           Int           @default(0)
+
+  startedAt  DateTime  @default(now()) @db.Timestamptz(3)
+  finishedAt DateTime? @db.Timestamptz(3)
+
+  rounds Round[]
+
+  @@map("game_session")
+}
+
+model Round {
+  id String @id @default(uuid())
+
+  sessionId String
+  session   GameSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  type String
+
+  answer    Json?
+  isCorrect Boolean?
+
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+
+  @@map("round")
+}
+
+model Achievement {
+  id String @id @default(uuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  key         String @unique
+  title       String
+  description String
+
+  unlockedAt DateTime @default(now()) @db.Timestamptz(3)
+
+  @@map("achievement")
+}
+
+model DailyStat {
+  id String @id @default(uuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  date DateTime @default(now()) @db.Date
+
+  gamesPlayed   Int @default(0)
+  correctAnswer Int @default(0)
+  wrongAnswer   Int @default(0)
+  earnedXp      Int @default(0)
+
+  @@unique([userId, date])
+  @@map("daily_stats")
+}
+
+model Word {
+  id String @id @default(uuid())
+
+  text     String
+  imageUrl String?
+  audioUrl String?
+
+  category   String?
+  difficulty Int     @default(1)
+
+  @@map("word")
+}
+
+model Sentence {
+  id String @id @default(uuid())
+
+  sentence String
+
+  category String?
+
+  @@map("sentence")
+}
+
+model Image {
+  id String @id @default(uuid())
+
+  title  String
+  images String[]
+
+  category String?
+
+  @@map("image")
+}
+
+model Shape {
+  id String @id @default(uuid())
+
+  imageUrl String
+  name     String
+  number   Int
+
+  category String?
+
+  @@map("shape")
+}
+
+model Quantity {
+  id String @id @default(uuid())
+
+  fewWord   String
+  manyWord  String
+  letter    String @db.VarChar(1)
+  fewImage  String
+  manyImage String
+
+  category String?
+
+  @@map("quantity")
+}
+
+model DailyChallenge {
+  id String @id @default(uuid())
+
+  title       String
+  description String
+
+  type ChallengeType
+
+  target Int
+
+  rewardXp Int
+
+  userDailyChallenges UserDailyChallenge[]
+
+  @@map("daily_challenge")
+}
+
+model UserDailyChallenge {
+  id String @id @default(uuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  challengeId  String
+  challenge    DailyChallenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  assignedDate DateTime       @default(now())
+
+  progress Int @default(0)
+
+  completedAt DateTime?
+
+  @@map("user_daily_challenge")
+}
+
+enum ChallengeType {
+  CORRECT_ANSWERS
+  GAMES_PLAYED
+  STREAK
+}
