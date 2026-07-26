@@ -12,7 +12,7 @@ export default function NavBar() {
   const router = useRouter();
 
   return (
-    <nav className="sticky top-0 z-50 mx-4 my-4 rounded-xl bg-card/50 backdrop-blur-md shadow-lg">
+    <nav className="sticky top-4 z-50 mx-4 my-4 rounded-xl bg-card/50 backdrop-blur-md shadow-lg">
       <div className="flex items-center justify-between px-6 py-3">
         {/* SINISTRA: Logo */}
         <div>
@@ -25,7 +25,7 @@ export default function NavBar() {
               alt="icon"
               height={32}
               width={32}
-              className="rounded-xl"
+              className="rounded-full"
             />
             A11yLab
           </Link>

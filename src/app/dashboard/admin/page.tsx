@@ -24,6 +24,12 @@ const sections = [
     icon: User,
     subtitle: "Controlla i dati degli utenti e le loro preferenze",
   },
+  {
+    id: "games",
+    title: "Giochi",
+    icon: User,
+    subtitle: "",
+  },
 ];
 
 export default async function AdminDashboard() {
@@ -64,6 +70,47 @@ export default async function AdminDashboard() {
       id: true,
     },
   });
+
+  const roundAccuracy = await prisma.round.findMany({
+    select: {
+      type: true,
+      isCorrect: true,
+    },
+  });
+
+  const accuracyChartData = Object.values(
+    roundAccuracy.reduce(
+      (acc, round) => {
+        if (!acc[round.type]) {
+          acc[round.type] = {
+            game:
+              games.find((g) => g.id === round.type)?.shortLable ?? round.type,
+            correct: 0,
+            total: 0,
+          };
+        }
+
+        acc[round.type].total++;
+
+        if (round.isCorrect) {
+          acc[round.type].correct++;
+        }
+
+        return acc;
+      },
+      {} as Record<string, { game: string; correct: number; total: number }>,
+    ),
+  ).map((game) => ({
+    game: game.game,
+    accuracy: Math.round((game.correct / game.total) * 100),
+  }));
+
+  const accuracyChartConfig = {
+    accuracy: {
+      label: "Corrette",
+      color: "var(--chart-2)",
+    },
+  } satisfies ChartConfig;
 
   return (
     <div className="space-y-6">
@@ -129,6 +176,26 @@ export default async function AdminDashboard() {
               xKey="game"
               bars={[{ key: "played" }]}
               tooltipFormatter="games"
+            />
+          </CardContent>
+        </Card>
+        <Card id="games">
+          <CardHeader>
+            <h2 className="text-2xl font-semibold">Andamento degli utenti</h2>
+            <CardDescription>
+              <p className="text-sm text-muted-foreground">
+                Controlla i dati degli utenti e le loro preferenze
+              </p>
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-4">
+            <AppBarChart
+              title="Media delle risposte per gioco"
+              description="Media delle risposte corrette di ogni gioco"
+              chartData={accuracyChartData}
+              chartConfig={accuracyChartConfig}
+              xKey="accuracy"
+              bars={[{ key: "corrects" }]}
             />
           </CardContent>
         </Card>
