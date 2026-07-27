@@ -284,7 +284,11 @@ export default async function DashboardPage() {
       />
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <Card className="transition-shadow hover:shadow-md">
+        <Card
+          className={
+            "group transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
+          }
+        >
           <CardHeader className="flex flex-row items-center justify-between space-y-0">
             <div>
               <h3 className="font-semibold">Gioco preferito</h3>

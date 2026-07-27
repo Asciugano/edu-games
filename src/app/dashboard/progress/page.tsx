@@ -337,7 +337,11 @@ export default async function ProgressPage() {
         description="I tuoi progressi degli ultimi 12 mesi"
       />
       <div className="grid gap-4 lg:grid-cols-2">
-        <Card>
+        <Card
+          className={
+            "group transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
+          }
+        >
           <CardHeader>
             <CardTitle>Punti di forza</CardTitle>
             <CardDescription>
@@ -358,7 +362,11 @@ export default async function ProgressPage() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card
+          className={
+            "group transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
+          }
+        >
           <CardHeader>
             <CardTitle>Aree da migliorare</CardTitle>
             <CardDescription>
