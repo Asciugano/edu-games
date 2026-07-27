@@ -84,7 +84,7 @@ export default async function AdminDashboard() {
         if (!acc[round.type]) {
           acc[round.type] = {
             game:
-              games.find((g) => g.id === round.type)?.shortLable ?? round.type,
+              games.find((g) => g.id === round.type)?.shortLabel ?? round.type,
             correct: 0,
             total: 0,
           };
@@ -103,11 +103,20 @@ export default async function AdminDashboard() {
   ).map((game) => ({
     game: game.game,
     accuracy: Math.round((game.correct / game.total) * 100),
+    total: game.total,
   }));
 
   const accuracyChartConfig = {
     accuracy: {
       label: "Corrette",
+      color: "var(--chart-4)",
+    },
+    game: {
+      label: "Giochi",
+      color: "var(--chart-3)",
+    },
+    total: {
+      label: "Partite",
       color: "var(--chart-2)",
     },
   } satisfies ChartConfig;
@@ -144,61 +153,63 @@ export default async function AdminDashboard() {
           </Card>
         </aside>
 
-        <Card id="users">
-          <CardHeader>
-            <h2 className="text-2xl font-semibold">Andamento degli utenti</h2>
-            <CardDescription>
-              <p className="text-sm text-muted-foreground">
-                Controlla i dati degli utenti e le loro preferenze
-              </p>
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="flex flex-col gap-4">
-            <div>
-              <h2 className="text-xl font-semibold">
-                Utenti online:{" "}
-                <span
-                  className={`text-2xl font-bold ${onlineUsers._count.id > 0 ? "text-primary" : "text-red-500"}`}
-                >
-                  {onlineUsers._count.id}
-                </span>
-              </h2>
-              <p className="text-sm text-muted-foreground">
-                Tu non sei contato
-              </p>
-            </div>
-            <AdminUserChart initialUsersChart={initialUsersChart} />
-            <AppBarChart
-              title="Giochi piu' giocati"
-              description="I giochi sono i piu' giocati dagli utenti"
-              chartData={gamesChartData}
-              chartConfig={gameChartConfig}
-              xKey="game"
-              bars={[{ key: "played" }]}
-              tooltipFormatter="games"
-            />
-          </CardContent>
-        </Card>
-        <Card id="games">
-          <CardHeader>
-            <h2 className="text-2xl font-semibold">Andamento degli utenti</h2>
-            <CardDescription>
-              <p className="text-sm text-muted-foreground">
-                Controlla i dati degli utenti e le loro preferenze
-              </p>
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="flex flex-col gap-4">
-            <AppBarChart
-              title="Media delle risposte per gioco"
-              description="Media delle risposte corrette di ogni gioco"
-              chartData={accuracyChartData}
-              chartConfig={accuracyChartConfig}
-              xKey="accuracy"
-              bars={[{ key: "corrects" }]}
-            />
-          </CardContent>
-        </Card>
+        <div className="space-y-8">
+          <Card id="users">
+            <CardHeader>
+              <h2 className="text-2xl font-semibold">Andamento degli utenti</h2>
+              <CardDescription>
+                <p className="text-sm text-muted-foreground">
+                  Controlla i dati degli utenti e le loro preferenze
+                </p>
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="flex flex-col gap-4">
+              <div>
+                <h2 className="text-xl font-semibold">
+                  Utenti online:{" "}
+                  <span
+                    className={`text-2xl font-bold ${onlineUsers._count.id > 0 ? "text-primary" : "text-red-500"}`}
+                  >
+                    {onlineUsers._count.id}
+                  </span>
+                </h2>
+                <p className="text-sm text-muted-foreground">
+                  Tu non sei contato
+                </p>
+              </div>
+              <AdminUserChart initialUsersChart={initialUsersChart} />
+              <AppBarChart
+                title="Giochi piu' giocati"
+                description="I giochi sono i piu' giocati dagli utenti"
+                chartData={gamesChartData}
+                chartConfig={gameChartConfig}
+                xKey="game"
+                bars={[{ key: "played" }]}
+                tooltipFormatter="games"
+              />
+            </CardContent>
+          </Card>
+          <Card id="games">
+            <CardHeader>
+              <h2 className="text-2xl font-semibold">Andamento dei giochi</h2>
+              <CardDescription>
+                <p className="text-sm text-muted-foreground">
+                  Controlla controlla come vanno i giochi per gli utenti
+                </p>
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="flex flex-col gap-4">
+              <AppBarChart
+                title="Media delle risposte per gioco"
+                description="Media delle risposte corrette di ogni gioco"
+                chartData={accuracyChartData}
+                chartConfig={accuracyChartConfig}
+                xKey="game"
+                bars={[{ key: "game" }, { key: "accuracy" }, { key: "total" }]}
+              />
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );
