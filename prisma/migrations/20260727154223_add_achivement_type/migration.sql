@@ -1,0 +1,6 @@
+-- CreateEnum
+CREATE TYPE "AchivementType" AS ENUM ('LEVEL', 'STREAK', 'CORRECT_ANSWERS', 'GAMES_PLAYED', 'PERFECT_LESSONS');
+
+-- AlterTable
+ALTER TABLE "achievement" ADD COLUMN     "goal" INTEGER NOT NULL DEFAULT 1,
+ADD COLUMN     "type" "AchivementType" NOT NULL DEFAULT 'GAMES_PLAYED';

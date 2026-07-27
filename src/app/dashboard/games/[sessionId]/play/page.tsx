@@ -9,6 +9,7 @@ import Link from "next/link";
 import GameResultOverlay from "@/components/game-result/game-resutl-overlay";
 import { finishGameSession } from "@/actions/game-sesison";
 import { updateChallenge } from "@/actions/challenge";
+import checkAchivements from "@/actions/achivements";
 
 export const metadata: Metadata = {
   title: "Gioca",
@@ -40,6 +41,7 @@ export default async function PlayPage({
     await Promise.all([
       finishGameSession(sessionId, xp),
       updateChallenge(sessionId),
+      checkAchivements(),
     ]);
 
     return (

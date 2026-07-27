@@ -25,6 +25,11 @@ export const auth = betterAuth({
         defaultValue: 1,
         input: false,
       },
+      coin: {
+        type: "number",
+        required: false,
+        defaultValue: 0,
+      },
       streak: {
         type: "number",
         required: false,

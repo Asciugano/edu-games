@@ -241,10 +241,18 @@ model UserAchievement {
   achivementId String
   achivement   Achievement @relation(fields: [achivementId], references: [id], onDelete: Cascade)
 
-  unlockedAt DateTime @default(now())
+  unlockedAt DateTime? @default(now())
 
   @@unique([userId, achivementId])
   @@map("user-achivement")
+}
+
+enum AchivementType {
+  LEVEL
+  STREAK
+  CORRECT_ANSWERS
+  GAMES_PLAYED
+  PERFECT_LESSONS
 }
 
 model Achievement {
@@ -256,6 +264,9 @@ model Achievement {
   description String
 
   rewardCoin Int @default(0)
+
+  type AchivementType @default(GAMES_PLAYED)
+  goal Int            @default(1)
 
   badgeId String?
   badge   Badge?  @relation(fields: [badgeId], references: [id], onDelete: Cascade)
