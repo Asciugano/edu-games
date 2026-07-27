@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  Map,
   ChevronsUpDown,
   Gift,
   ChartColumn,
@@ -9,6 +8,7 @@ import {
   Play,
   Shuffle,
   Star,
+  ShoppingCart,
 } from "lucide-react";
 import {
   Sidebar,
@@ -48,15 +48,7 @@ export const data = {
       url: "/dashboard/games",
       icon: Play,
     },
-    {
-      title: "Percorsi",
-      url: "/paths",
-      icon: Map,
-    },
   ],
-
-  // learning: [
-  // ],
 
   progress: [
     {
@@ -71,8 +63,16 @@ export const data = {
     },
     {
       title: "Premi",
-      url: "/dashboard/rewards",
+      url: "/dashboard/achievements",
       icon: Gift,
+    },
+  ],
+
+  shop: [
+    {
+      title: "Negozio",
+      url: "/dashboard/shop",
+      icon: ShoppingCart,
     },
   ],
 };

@@ -12,6 +12,89 @@ datasource db {
   provider = "postgresql"
 }
 
+model Badge {
+  id String @id @default(uuid())
+
+  key String @unique
+
+  name        String
+  description String
+
+  icon String
+
+  createdAt    DateTime      @default(now())
+  userBadges   UserBadge[]
+  achievements Achievement[]
+
+  @@map("badge")
+}
+
+enum ShopItemType {
+  AVATAR
+  FRAME
+  TITLE
+  THEME
+}
+
+enum ItemRarity {
+  COMMON
+  RARE
+  EPIC
+  LEGENDARY
+}
+
+model ShopItem {
+  id String @id @default(uuid())
+
+  key String @unique
+
+  name        String
+  description String
+
+  type   ShopItemType
+  rarity ItemRarity   @default(COMMON)
+
+  image String?
+
+  price Int
+
+  createdAt       DateTime        @default(now())
+  userInventories UserInventory[]
+
+  @@map("shop-item")
+}
+
+model UserInventory {
+  id String @id @default(uuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  itemId String
+  item   ShopItem @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  purchasedAt DateTime @default(now())
+  equipped    Boolean  @default(false)
+
+  @@unique([userId, itemId])
+  @@map("user-inventory")
+}
+
+model UserBadge {
+  id String @id @default(uuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  badgeId String
+  badge   Badge  @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+
+  unlockedAt DateTime @default(now())
+
+  @@unique([userId, badgeId])
+  @@map("user-badge")
+}
+
 model User {
   id String @id @default(uuid())
 
@@ -22,6 +105,7 @@ model User {
   level   Int @default(1)
   totalXp Int @default(0)
   streak  Int @default(0)
+  coin    Int @default(0)
 
   emailVerified Boolean
   image         String?
@@ -38,9 +122,11 @@ model User {
   accounts Account[]
 
   gameSessions        GameSession[]
-  achievements        Achievement[]
   dailyStats          DailyStat[]
   userDailyChallenges UserDailyChallenge[]
+  userBadges          UserBadge[]
+  userInventories     UserInventory[]
+  userAchivements     UserAchievement[]
 
   @@map("user")
 }
@@ -146,17 +232,35 @@ model Round {
   @@map("round")
 }
 
-model Achievement {
+model UserAchievement {
   id String @id @default(uuid())
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  key         String @unique
+  achivementId String
+  achivement   Achievement @relation(fields: [achivementId], references: [id], onDelete: Cascade)
+
+  unlockedAt DateTime @default(now())
+
+  @@unique([userId, achivementId])
+  @@map("user-achivement")
+}
+
+model Achievement {
+  id String @id @default(uuid())
+
+  image       String?
+  key         String  @unique
   title       String
   description String
 
-  unlockedAt DateTime @default(now()) @db.Timestamptz(3)
+  rewardCoin Int @default(0)
+
+  badgeId String?
+  badge   Badge?  @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+
+  userAchievements UserAchievement[]
 
   @@map("achievement")
 }
