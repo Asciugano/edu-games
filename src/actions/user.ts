@@ -1,10 +1,8 @@
 "use server";
 
-import { auth } from "@/lib/auth";
 import { buildTimeline, daysAgo, getRangeConfig } from "@/lib/chart/range";
 import prisma from "@/lib/prisma";
 import { DateRange } from "@/types/chars/date-range";
-import { headers } from "next/headers";
 
 export async function getUsersChart(range: DateRange) {
   const now = new Date();

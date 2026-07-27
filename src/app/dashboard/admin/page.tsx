@@ -189,7 +189,7 @@ export default async function AdminDashboard() {
     },
     avgTime: {
       label: "Durata media",
-      color: "var(--chart-4)",
+      color: "var(--chart-5)",
     },
   } satisfies ChartConfig;
 
@@ -219,6 +219,16 @@ export default async function AdminDashboard() {
       color: "var(--chart-1)",
     },
   } satisfies ChartConfig;
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const todayGames = await prisma.gameSession.count({
+    where: {
+      startedAt: {
+        gte: today,
+      },
+    },
+  });
 
   return (
     <div className="space-y-6">
@@ -298,6 +308,16 @@ export default async function AdminDashboard() {
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
+              <div>
+                <h2 className="text-xl font-semibold">
+                  Partite giocate oggi:{" "}
+                  <span
+                    className={`text-2xl font-bold ${todayGames > 0 ? "text-primary" : "text-red-500"}`}
+                  >
+                    {todayGames}
+                  </span>
+                </h2>
+              </div>
               <AppBarChart
                 title="Media delle risposte per gioco"
                 description="Media delle risposte corrette di ogni gioco"
