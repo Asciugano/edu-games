@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/sonner";
 import { Providers } from "./providers";
+import { AppFooter } from "@/components/footer/app-footer";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -39,6 +40,7 @@ export default function RootLayout({
           <Toaster position="top-center" />
           <main>
             <Providers>{children}</Providers>
+            <AppFooter />
           </main>
         </ThemeProvider>
       </body>
