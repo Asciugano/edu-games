@@ -121,6 +121,77 @@ export default async function AdminDashboard() {
     },
   } satisfies ChartConfig;
 
+  const gameSession = await prisma.gameSession.findMany({
+    where: {
+      finishedAt: {
+        not: null,
+      },
+    },
+    select: {
+      startedAt: true,
+      finishedAt: true,
+      rounds: {
+        select: {
+          type: true,
+        },
+      },
+    },
+  });
+
+  const avgTimeChartData = Object.values(
+    gameSession.reduce(
+      (acc, session) => {
+        if (!session.finishedAt || session.rounds.length === 0) {
+          return acc;
+        }
+
+        const duration =
+          session.finishedAt.getTime() - session.startedAt.getTime();
+
+        const durationPerRound = duration / session.rounds.length;
+
+        for (const round of session.rounds) {
+          if (!acc[round.type]) {
+            acc[round.type] = {
+              game:
+                games.find((g) => g.id === round.type)?.shortLabel ??
+                round.type,
+              totalDuration: 0,
+              rounds: 0,
+            };
+          }
+
+          acc[round.type].totalDuration += durationPerRound;
+          acc[round.type].rounds++;
+        }
+
+        return acc;
+      },
+      {} as Record<
+        string,
+        {
+          game: string;
+          totalDuration: number;
+          rounds: number;
+        }
+      >,
+    ),
+  ).map((game) => ({
+    game: game.game,
+    avgTime: Math.round(game.totalDuration / game.rounds / 1000), // secondi
+  }));
+
+  const avgTimeChartConfig = {
+    game: {
+      label: "Gioco",
+      color: "var(--chart-2)",
+    },
+    avgTime: {
+      label: "Durata media",
+      color: "var(--chart-4)",
+    },
+  } satisfies ChartConfig;
+
   return (
     <div className="space-y-6">
       <PageHeader
@@ -206,6 +277,14 @@ export default async function AdminDashboard() {
                 chartConfig={accuracyChartConfig}
                 xKey="game"
                 bars={[{ key: "game" }, { key: "accuracy" }, { key: "total" }]}
+              />
+              <AppBarChart
+                title="Tempo medio per partita"
+                description="Tempo medio per ogni gioco"
+                chartData={avgTimeChartData}
+                chartConfig={avgTimeChartConfig}
+                xKey="game"
+                bars={[{ key: "game" }, { key: "avgTime" }]}
               />
             </CardContent>
           </Card>
