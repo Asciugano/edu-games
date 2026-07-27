@@ -16,6 +16,7 @@ import { games } from "@/types/games/games";
 import { LockKeyhole, User } from "lucide-react";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { GameMode } from "../../../../generated/prisma/enums";
 
 const sections = [
   {
@@ -192,6 +193,33 @@ export default async function AdminDashboard() {
     },
   } satisfies ChartConfig;
 
+  const favouriteMode = await prisma.gameSession.groupBy({
+    by: ["mode"],
+    _count: {
+      id: true,
+    },
+  });
+
+  const favouriteChartData = Object.values(GameMode).map((mode) => {
+    const stat = favouriteMode.find((s) => s.mode === mode);
+
+    return {
+      mode: mode.toLowerCase(),
+      played: stat?._count.id ?? 0,
+    };
+  });
+
+  const favouriteChartConfig = {
+    mode: {
+      label: "Modalita'",
+      color: "var(--chart-2)",
+    },
+    played: {
+      label: "Partite",
+      color: "var(--chart-1)",
+    },
+  } satisfies ChartConfig;
+
   return (
     <div className="space-y-6">
       <PageHeader
@@ -285,6 +313,14 @@ export default async function AdminDashboard() {
                 chartConfig={avgTimeChartConfig}
                 xKey="game"
                 bars={[{ key: "game" }, { key: "avgTime" }]}
+              />
+              <AppBarChart
+                title="Modalita' prefetita"
+                description="Numero delle partite in base alla modalita' scelta"
+                chartData={favouriteChartData}
+                chartConfig={favouriteChartConfig}
+                xKey="mode"
+                bars={[{ key: "played" }]}
               />
             </CardContent>
           </Card>
