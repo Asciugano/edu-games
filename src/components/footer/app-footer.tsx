@@ -19,9 +19,9 @@ export function AppFooter() {
             <h3 className="mb-4 font-semibold">Esplora</h3>
 
             <div className="flex flex-col gap-2 text-sm text-muted-foreground">
-              <Link href="/games">Giochi</Link>
-              <Link href="/leaderboard">Classifica</Link>
-              <Link href="/achievements">Achievement</Link>
+              <Link href="/dashboard/games">Giochi</Link>
+              <Link href="/dashboard/achievements">Achievement</Link>
+              <Link href="/dashboard/challenges">Sfide</Link>
             </div>
           </div>
 
@@ -64,7 +64,9 @@ export function AppFooter() {
           </div>
 
           <div className="text-center text-sm text-muted-foreground md:text-right">
-            <p>Copyright (c) 2026 Asciugano. All Rights Reserved.</p>
+            <p>
+              © 2026 Edu-Games — Creato da Asciugano. Tutti i diritti riservati.
+            </p>
           </div>
         </div>
       </div>

@@ -134,7 +134,6 @@ export default function AppSidebar({
                   </div>
                   <div className="grid flex-1 text-left text-sm leading-tight">
                     <span className="truncate font-medium">Edu-Games</span>
-                    {/*<span className="truncate text-xs">{activeaction.plan}</span>*/}
                   </div>
                   <ChevronsUpDown className="ml-auto" />
                 </SidebarMenuButton>
@@ -174,7 +173,7 @@ export default function AppSidebar({
         </SidebarMenu>
       </SidebarHeader>
 
-      <SidebarSeparator />
+      <SidebarSeparator className="mx-0" />
 
       <SidebarContent>
         {Object.entries(data).map(([section, items]) => (

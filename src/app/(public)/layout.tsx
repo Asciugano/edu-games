@@ -1,3 +1,4 @@
+import { AppFooter } from "@/components/footer/app-footer";
 import NavBar from "@/components/nav-bar";
 import type { Metadata } from "next";
 
@@ -13,6 +14,7 @@ export default async function DashboardLayout({
       <NavBar />
 
       <main className="flex-1">{children}</main>
+      <AppFooter />
     </div>
   );
 }

@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/sidebar";
 import { cookies } from "next/headers";
 import { assignChallenges } from "@/actions/challenge";
+import { AppFooter } from "@/components/footer/app-footer";
 
 export const metadata: Metadata = { title: "Edu-Games" };
 
@@ -36,6 +37,9 @@ export default async function DashboardLayout({
           <main className="flex-1">
             <div className="p-4">{children}</div>
           </main>
+          <div className="mt-10">
+            <AppFooter />
+          </div>
         </SidebarInset>
       </div>
     </SidebarProvider>
