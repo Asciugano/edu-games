@@ -71,5 +71,16 @@ export async function main() {
       },
     }),
   );
+
+  await prisma.achievement.create({
+    data: {
+      key: "first_game",
+      title: "Benvenuto",
+      description: "Gioca la prima partita",
+      rewardCoin: 10,
+      type: "GAMES_PLAYED",
+      goal: 1,
+    },
+  });
 }
 main();

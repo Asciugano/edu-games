@@ -8,6 +8,7 @@ import {
   Percent,
   CalendarDays,
   TrendingUp,
+  Coins,
 } from "lucide-react";
 import AppAreaChart from "@/components/charts/app-area-chart";
 import PageHeader from "@/components/page-header";
@@ -241,6 +242,12 @@ export default async function ProgressPage() {
           title="Giorni attivi"
           value={`${activeDays} giorni`}
           icon={CalendarDays}
+          className="min-w-[180px] flex-1"
+        />
+        <StatCard
+          title="Monete"
+          value={user.coin ?? 0}
+          icon={Coins}
           className="min-w-[180px] flex-1"
         />
       </div>

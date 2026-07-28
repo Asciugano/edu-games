@@ -15,7 +15,7 @@ import { Progress } from "@/components/ui/progress";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { games } from "@/types/games/games";
-import { Flame, Percent, Star, Trophy } from "lucide-react";
+import { Coins, Flame, Percent, Star, Trophy } from "lucide-react";
 import { headers } from "next/headers";
 
 export default async function DashboardPage() {
@@ -228,6 +228,12 @@ export default async function DashboardPage() {
           title="Accuracy"
           value={`${accuracy}%`}
           icon={Percent}
+          className="min-w-[180px] flex-1"
+        />
+        <StatCard
+          title="Monete"
+          value={user.coin ?? 0}
+          icon={Coins}
           className="min-w-[180px] flex-1"
         />
       </div>
