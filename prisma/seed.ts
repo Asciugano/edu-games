@@ -82,5 +82,34 @@ export async function main() {
       goal: 1,
     },
   });
+
+  await prisma.shopItem.createMany({
+    data: [
+      {
+        name: "Gold Avatar",
+        description: "L'avatar piu stiloso di tutti",
+        key: "golden_avatar",
+        type: "AVATAR",
+        rarity: "LEGENDARY",
+        price: 100,
+      },
+      {
+        name: "Gold Frame",
+        description: "Il frame piu stiloso di tutti",
+        key: "golden_frame",
+        type: "FRAME",
+        rarity: "EPIC",
+        price: 50,
+      },
+      {
+        name: "The best",
+        description: "Il titolo giusto per i migliori",
+        key: "best_title",
+        type: "TITLE",
+        rarity: "RARE",
+        price: 10,
+      },
+    ],
+  });
 }
 main();
