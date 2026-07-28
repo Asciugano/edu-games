@@ -37,9 +37,7 @@ export default async function DashboardLayout({
           <main className="flex-1">
             <div className="p-4">{children}</div>
           </main>
-          <div className="mt-10">
-            <AppFooter />
-          </div>
+          <AppFooter />
         </SidebarInset>
       </div>
     </SidebarProvider>

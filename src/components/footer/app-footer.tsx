@@ -1,9 +1,15 @@
 import Link from "next/link";
-import { FaGithub, FaInstagram, FaMailBulk } from "react-icons/fa";
+import {
+  FaFacebook,
+  FaGithub,
+  FaInstagram,
+  FaMailBulk,
+  FaYoutube,
+} from "react-icons/fa";
 
 export function AppFooter() {
   return (
-    <footer className="border-t bg-background">
+    <footer className="border-t bg-background mt-10">
       <div className="container mx-auto px-6 py-12">
         <div className="grid gap-10 md:grid-cols-4">
           <div className="space-y-3">
@@ -60,6 +66,14 @@ export function AppFooter() {
 
             <Link href="mailto:diaferiosamuele@gamil.com">
               <FaMailBulk className="size-5 transition hover:text-primary" />
+            </Link>
+
+            <Link href="#">
+              <FaFacebook className="size-5 transition hover:text-primary" />
+            </Link>
+
+            <Link href="#">
+              <FaYoutube className="size-5 transition hover:text-primary" />
             </Link>
           </div>
 
