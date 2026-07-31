@@ -69,7 +69,7 @@ export default function Home() {
                 <span className="hero-title-line">Diventa più forte.</span>
               </h1>
 
-              <p className="hero-title-linehero-description mt-6 max-w-xl text-lg leading-8 text-muted-foreground sm:text-xl">
+              <p className="hero-description mt-6 max-w-xl text-lg leading-8 text-muted-foreground sm:text-xl">
                 edu-games trasforma l&apos;apprendimento in una sfida. Gioca,
                 rispondi alle domande, guadagna XP e costruisci la tua
                 progressione giorno dopo giorno.
