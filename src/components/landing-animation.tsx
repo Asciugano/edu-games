@@ -34,11 +34,13 @@ export default function LandingAnimations() {
           duration: 0.6,
         })
         .from(
-          ".hero-title",
+          ".hero-title-line",
           {
             opacity: 0,
-            y: 45,
-            duration: 0.8,
+            y: 35,
+            duration: 0.65,
+            stagger: 0.12,
+            ease: "power3.out",
           },
           "-=0.35",
         )
@@ -204,39 +206,62 @@ export default function LandingAnimations() {
        * ============================================================
        */
 
-      const featuresTitle = gsap.utils.toArray<HTMLElement>(".features-title");
-      featuresTitle.forEach((title, index) => {
-        gsap.from(title, {
-          xPercent: -100,
-          duration: 1.8,
-          ease: "expo.out",
-          stagger: 0.06,
-        });
+      const featureTitleLines = gsap.utils.toArray<HTMLElement>(
+        ".features-title-line",
+      );
 
-        ScrollTrigger.create({
-          trigger: title,
-
-          onEnter: () => {
-            gsap.fromTo(
-              title,
-              {
-                xPercent: -100,
-                duration: 1.8,
-                ease: "expo.out",
-                stagger: 0.06,
-              },
-              {
-                xPercent: 0,
-                duration: 1.8,
-                ease: "back",
-                delay: index * 0.12,
-                stagger: 0.06,
-              },
-            );
-          },
+      featureTitleLines.forEach((line) => {
+        gsap.set(line, {
+          opacity: 0,
+          y: 35,
         });
       });
 
+      ScrollTrigger.create({
+        trigger: ".features-title",
+        start: "top 80%",
+
+        onEnter: () => {
+          gsap.fromTo(
+            featureTitleLines,
+            {
+              opacity: 0,
+              y: 35,
+            },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.65,
+              stagger: 0.12,
+              ease: "power3.out",
+            },
+          );
+        },
+
+        onEnterBack: () => {
+          gsap.fromTo(
+            featureTitleLines,
+            {
+              opacity: 0,
+              y: 35,
+            },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.65,
+              stagger: 0.12,
+              ease: "power3.out",
+            },
+          );
+        },
+
+        onLeaveBack: () => {
+          gsap.set(featureTitleLines, {
+            opacity: 0,
+            y: 35,
+          });
+        },
+      });
       const featureCards = gsap.utils.toArray<HTMLElement>(".feature-card");
 
       featureCards.forEach((card, index) => {

@@ -62,14 +62,14 @@ export default function Home() {
               </div>
 
               <h1 className="hero-title max-w-3xl text-5xl font-black tracking-tight sm:text-6xl lg:text-7xl">
-                Impara.
+                <span className="hero-title-line">Impara.</span>
                 <br />
-                <span className="text-primary">Gioca.</span>
+                <span className="hero-title-line text-primary">Gioca.</span>
                 <br />
-                Diventa più forte.
+                <span className="hero-title-line">Diventa più forte.</span>
               </h1>
 
-              <p className="hero-description mt-6 max-w-xl text-lg leading-8 text-muted-foreground sm:text-xl">
+              <p className="hero-title-linehero-description mt-6 max-w-xl text-lg leading-8 text-muted-foreground sm:text-xl">
                 edu-games trasforma l&apos;apprendimento in una sfida. Gioca,
                 rispondi alle domande, guadagna XP e costruisci la tua
                 progressione giorno dopo giorno.
@@ -77,7 +77,7 @@ export default function Home() {
 
               <div className="hero-actions mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link
-                  href="/games"
+                  href="/dashboard/games"
                   className="group inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-bold text-primary-foreground shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl"
                 >
                   Inizia a giocare
@@ -235,12 +235,14 @@ export default function Home() {
 
         <section className="features-section mx-auto max-w-7xl px-6 py-24 lg:px-8 ">
           <div className="max-w-2xl features-title">
-            <p className="font-bold text-primary">COME FUNZIONA</p>
+            <p className="features-title-line font-bold text-primary">
+              COME FUNZIONA
+            </p>
 
             <h2 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">
-              Quattro passi.
+              <span className="features-title-line">Quattro passi.</span>
               <br />
-              Una nuova abitudine.
+              <span className="features-title-line">Una nuova abitudine.</span>
             </h2>
           </div>
 
@@ -294,7 +296,7 @@ export default function Home() {
               </div>
 
               <Link
-                href="/games"
+                href="/dashboard/games"
                 className="group inline-flex items-center gap-2 font-bold text-primary"
               >
                 Vedi tutti i giochi
@@ -308,7 +310,7 @@ export default function Home() {
 
                 return (
                   <Link
-                    href="/games"
+                    href="/dashboard/games"
                     key={game.title}
                     className="game-card group rounded-3xl border bg-card p-6 transition-all hover:-translate-y-1 hover:shadow-xl"
                   >
@@ -452,7 +454,7 @@ export default function Home() {
               </p>
 
               <Link
-                href="/games"
+                href="/dashboard/games"
                 className="mt-8 inline-flex items-center gap-2 rounded-xl bg-background px-7 py-4 font-black text-foreground shadow-lg transition hover:-translate-y-0.5"
               >
                 Inizia a giocare
