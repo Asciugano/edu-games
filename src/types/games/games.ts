@@ -1,3 +1,11 @@
+import {
+  ListOrdered,
+  Puzzle,
+  Scale,
+  Shapes,
+  Shuffle,
+  TextCursorInput,
+} from "lucide-react";
 import { ExerciseType } from "../../../generated/prisma/enums";
 
 export type GameResult = {
@@ -66,6 +74,7 @@ export const games = [
     shortLabel: "Parole",
     desription:
       "Data un immagine e delle lettere sparse crea la parola corretta",
+    icon: TextCursorInput,
   },
   {
     id: ExerciseType.SENTENCE_ORDER,
@@ -73,6 +82,7 @@ export const games = [
     shortLabel: "Frasi",
     desription:
       "Data delle parole sparse ricrea la frase giusta (occhio alle parole in piu')",
+    icon: Shuffle,
   },
   {
     id: ExerciseType.COUNT_OBJECTS,
@@ -80,12 +90,14 @@ export const games = [
     shortLabel: "Conta",
     desription:
       "Data un immagine, una forma e dei numeri, inserire il giusto conteggio delle forme nell'immagine",
+    icon: Shapes,
   },
   {
     id: ExerciseType.IMAGE_ORDER,
     title: "In Sequenza",
     shortLabel: "Sequenza",
     desription: "Date tre immagini metterle in ordine cronologico",
+    icon: ListOrdered,
   },
   {
     id: ExerciseType.QUANTITY_COMPARISON,
@@ -93,6 +105,7 @@ export const games = [
     shortLabel: "Quantita'",
     desription:
       "Date due immagini e una domanda selezionare l'immagine che raffigura il numero giusto di soggetti",
+    icon: Scale,
   },
   {
     id: ExerciseType.WORD_IMAGE_MATCH,
@@ -100,5 +113,6 @@ export const games = [
     shortLabel: "Abbina",
     desription:
       "Data un immagine e diverse parole selezionare la parola giusta",
+    icon: Puzzle,
   },
 ];
