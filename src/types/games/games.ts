@@ -1,6 +1,7 @@
 import {
   Calculator,
   ListOrdered,
+  LucideIcon,
   Puzzle,
   Scale,
   Shapes,
@@ -71,12 +72,18 @@ export type QuantityComparisonPayload = {
 export type MathQuizPayload = {
   operandA: number;
   operandB: number;
-  operation: number;
+  operation: string;
   answer: number;
-  choices: [];
+  choices: number[];
 };
 
-export const games = [
+export const games: {
+  id: ExerciseType;
+  title: string;
+  shortLabel: string;
+  desription: string;
+  icon: LucideIcon;
+}[] = [
   {
     id: ExerciseType.WORD_ORDER,
     title: "Riordina le Parole",
@@ -128,7 +135,7 @@ export const games = [
     id: ExerciseType.MATH_QUIZ,
     title: "Quiz Matematico",
     shortLabel: "Matematico",
-    description: "Risolvi i calcoli che ti vengono proposti",
+    desription: "Risolvi i calcoli che ti vengono proposti",
     icon: Calculator,
   },
 ];

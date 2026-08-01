@@ -1,7 +1,6 @@
 import Link from "next/link";
 import {
   ArrowRight,
-  Brain,
   Flame,
   Gamepad2,
   GraduationCap,
@@ -13,6 +12,15 @@ import {
 } from "lucide-react";
 import LandingAnimations from "@/components/landing-animation";
 import { games } from "@/types/games/games";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import { GameHeader } from "@/components/game-header";
 
 const features = [
   {
@@ -114,49 +122,69 @@ export default function Home() {
 
             <div className="hero-visual relative mx-auto w-full max-w-xl">
               <div className="relative rotate-2 rounded-[2rem] border bg-card p-5 shadow-2xl">
-                <div className="mb-5 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="flex size-11 items-center justify-center rounded-xl bg-primary/10">
-                      <Brain className="size-6 text-primary" />
-                    </div>
+                <GameHeader
+                  xp={30}
+                  currentRound={7}
+                  totalRounds={10}
+                  exercize="MATH_QUIZ"
+                />
 
-                    <div>
-                      <p className="font-bold">Quiz di matematica</p>
+                <Card className="mx-auto max-w-4xl">
+                  <CardHeader className="border-b bg-muted/30">
+                    <CardTitle className="flex items-center justify-center gap-2 text-2xl">
+                      Quiz Matematica
+                    </CardTitle>
+                  </CardHeader>
 
-                      <p className="text-xs text-muted-foreground">
-                        Domanda 7 di 10
+                  <CardContent className="space-y-10 pt-8">
+                    {/* Domanda */}
+                    <div className="space-y-3 text-center">
+                      <p className="text-sm font-medium text-muted-foreground">
+                        Risolvi l&apos;operazione
                       </p>
-                    </div>
-                  </div>
 
-                  <div className="flex items-center gap-1 font-bold text-orange-500">
-                    <Flame className="size-5 fill-current" />
-                    12
-                  </div>
-                </div>
-
-                <div className="mb-8 h-3 overflow-hidden rounded-full bg-muted">
-                  <div className="h-full w-[70%] rounded-full bg-primary" />
-                </div>
-
-                <div className="rounded-2xl bg-muted/50 p-6">
-                  <p className="text-center text-sm font-medium text-muted-foreground">
-                    Quanto fa?
-                  </p>
-
-                  <p className="mt-2 text-center text-4xl font-black">12 × 8</p>
-
-                  <div className="mt-6 grid grid-cols-2 gap-3">
-                    {["86", "96", "108", "112"].map((answer) => (
-                      <button
-                        key={answer}
-                        className="rounded-xl border bg-background px-4 py-4 font-bold transition hover:border-primary hover:bg-primary/5"
+                      <div
+                        className="
+    mx-auto flex h-32 max-w-md items-center justify-center
+    rounded-2xl border
+    from-primary/10 to-primary/5
+    shadow-inner
+    "
                       >
-                        {answer}
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                        <p className="text-5xl font-black tracking-wider">
+                          12 <span className="text-primary">x</span> 8
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Risposte */}
+                    <div className="grid grid-cols-2 gap-4">
+                      {["86", "96", "108", "112"].map((n) => (
+                        <Button
+                          key={n}
+                          size="lg"
+                          className="
+      bg-muted
+      h-20 rounded-xl
+      text-3xl font-black
+      transition-all
+      hover:border-primary
+      hover:bg-primary/10
+      active:scale-95
+      "
+                        >
+                          {n}
+                        </Button>
+                      ))}
+                    </div>
+                  </CardContent>
+
+                  <CardFooter className="justify-center border-t bg-muted/20">
+                    <p className="text-xs text-muted-foreground">
+                      Scegli il risultato corretto tra le opzioni
+                    </p>
+                  </CardFooter>
+                </Card>
 
                 <div className="mt-5 flex items-center justify-between rounded-xl bg-primary/5 px-4 py-3">
                   <div className="flex items-center gap-2">
