@@ -1,4 +1,5 @@
 import {
+  Calculator,
   ListOrdered,
   Puzzle,
   Scale,
@@ -67,6 +68,14 @@ export type QuantityComparisonPayload = {
   images: string[];
 };
 
+export type MathQuizPayload = {
+  operandA: number;
+  operandB: number;
+  operation: number;
+  answer: number;
+  choices: [];
+};
+
 export const games = [
   {
     id: ExerciseType.WORD_ORDER,
@@ -114,5 +123,12 @@ export const games = [
     desription:
       "Data un immagine e diverse parole selezionare la parola giusta",
     icon: Puzzle,
+  },
+  {
+    id: ExerciseType.MATH_QUIZ,
+    title: "Quiz Matematico",
+    shortLabel: "Matematico",
+    description: "Risolvi i calcoli che ti vengono proposti",
+    icon: Calculator,
   },
 ];

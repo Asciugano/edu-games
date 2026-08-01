@@ -79,6 +79,7 @@ export default async function PlayPage({
               currentRound={session.rounds.length + 1}
               totalRounds={10}
               xp={xp}
+              exercize={game.type}
             />
             <GameRenderer
               roundId={round.id}

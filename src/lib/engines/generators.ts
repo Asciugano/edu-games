@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import { gameRegistry } from "./registry";
 import { ExerciseType } from "../../../generated/prisma/enums";
+import { randomInt } from "node:crypto";
 
 export type GeneratedGame = {
   type: keyof typeof gameRegistry;
@@ -139,6 +140,69 @@ export async function generateQuantityComparison(): Promise<GeneratedGame> {
   };
 }
 
+export async function generateMathQuiz(): Promise<GeneratedGame> {
+  const operandA = randomInt(1, 21);
+  const operandB = randomInt(1, 21);
+
+  let correct;
+  const operationIdx = randomInt(1, 7);
+  let operation = "";
+  switch (operationIdx) {
+    case 1:
+      operation = "+";
+      correct = operandA + operandB;
+      break;
+    case 2:
+      operation = "-";
+      correct = operandA - operandB;
+      break;
+    case 3:
+      operation = "x";
+      correct = operandA * operandB;
+      break;
+    case 4:
+      operation = ":";
+      correct = operandA / operandB;
+      break;
+    case 5:
+      operation = "^";
+      correct = Math.pow(operandA, operandB);
+      break;
+    case 6:
+      operation = "sqrt";
+      correct = Math.sqrt(operandA);
+      break;
+    case 7:
+      operation = "=";
+      break;
+  }
+
+  const set = new Set<number>();
+
+  set.add(correct!);
+
+  while (set.size < 4) {
+    const delta = Math.floor(Math.random() * 8) - 4;
+
+    if (delta === 0) continue;
+
+    set.add(correct! + delta);
+  }
+
+  const choices = [...set].sort(() => Math.random() - 0.5);
+
+  return {
+    type: "MATH_QUIZ" as keyof typeof gameRegistry,
+    payload: {
+      operandA,
+      operandB,
+      operation,
+      answer: correct,
+      choices,
+    },
+  };
+}
+
 export const gameGenerators: Record<
   ExerciseType,
   () => Promise<GeneratedGame>
@@ -149,4 +213,5 @@ export const gameGenerators: Record<
   COUNT_OBJECTS: generateCountObject,
   QUANTITY_COMPARISON: generateQuantityComparison,
   WORD_IMAGE_MATCH: generateWordImageMatch,
+  MATH_QUIZ: generateMathQuiz,
 };

@@ -195,6 +195,7 @@ enum ExerciseType {
   COUNT_OBJECTS
   QUANTITY_COMPARISON
   WORD_IMAGE_MATCH
+  MATH_QUIZ
 }
 
 model GameSession {

@@ -68,6 +68,7 @@ export default async function DashboardPage() {
     COUNT_OBJECTS: { played: 0, correct: 0, wrong: 0 },
     QUANTITY_COMPARISON: { played: 0, correct: 0, wrong: 0 },
     WORD_IMAGE_MATCH: { played: 0, correct: 0, wrong: 0 },
+    MATH_QUIZ: { played: 0, correct: 0, wrong: 0 },
   };
 
   for (const round of rounds) {
