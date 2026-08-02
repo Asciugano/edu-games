@@ -1,5 +1,90 @@
 {
-  "Landing": {
-    "title": "Test"
+  "landing": {
+    "hero": {
+      "badge": "Learning has never been so fun",
+      "title1": "Learn.",
+      "title2": "Play.",
+      "title3": "Become stronger.",
+      "description": "edu-games transforms learning into a challenge. Play, answer questions, earn XP and build your progress day after day.",
+      "primaryButton": "Start playing",
+      "secondaryButton": "Discover edu-games",
+      "benefits": {
+        "free": "Free",
+        "interactive": "Interactive games",
+        "progression": "Progression"
+      }
+    },
+
+    "gamePreview": {
+      "title": "Math Quiz",
+      "question": "Solve the operation",
+      "footer": "Choose the correct result from the options",
+      "xpAvailable": "Available XP",
+      "newLevel": "New level!",
+      "level": "Level 12",
+      "streak": "Streak",
+      "days": "{count} days"
+    },
+
+    "intro": {
+      "title": "What if studying felt like a game?",
+      "description": "edu-games was born from a simple idea: learning is more effective when you want to keep going. That's why we transform quizzes and knowledge into small challenges that make you want to try again."
+    },
+
+    "features": {
+      "label": "HOW IT WORKS",
+      "title1": "Four steps.",
+      "title2": "A new habit.",
+      "items": {
+        "learn": {
+          "title": "Learn by playing",
+          "description": "Turn studying into a challenge. Answer questions, complete levels and keep improving."
+        },
+        "xp": {
+          "title": "Earn XP",
+          "description": "Every game allows you to gain experience and level up."
+        },
+        "streak": {
+          "title": "Keep your streak",
+          "description": "Play every day and build an increasingly longer winning streak."
+        }
+      }
+    },
+
+    "games": {
+      "label": "YOUR GAMES",
+      "title1": "There is always something",
+      "title2": "new to learn.",
+      "viewAll": "View all games",
+      "discover": "Discover the game"
+    },
+
+    "progression": {
+      "label": "YOUR PROGRESSION",
+      "title1": "Every answer",
+      "title2": "matters.",
+      "description": "You don't play only to get a correct answer. Build your journey, collect experience and see how much you have improved.",
+      "stats": {
+        "xp": {
+          "title": "XP",
+          "description": "Earn experience"
+        },
+        "badge": {
+          "title": "Badge",
+          "description": "Unlock achievements"
+        }
+      },
+      "level": "Your level",
+      "experience": "{current} / {max} XP",
+      "streak": "Streak",
+      "games": "Games",
+      "badges": "Badges"
+    },
+
+    "cta": {
+      "title": "Ready to test your knowledge?",
+      "description": "One question at a time. One game at a time. One level at a time.",
+      "button": "Start playing"
+    }
   }
 }

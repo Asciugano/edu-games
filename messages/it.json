@@ -1,5 +1,90 @@
 {
-  "Landing": {
-    "title": "Test"
+  "landing": {
+    "hero": {
+      "badge": "Imparare non è mai stato così divertente",
+      "title1": "Impara.",
+      "title2": "Gioca.",
+      "title3": "Diventa più forte.",
+      "description": "edu-games trasforma l'apprendimento in una sfida. Gioca, rispondi alle domande, guadagna XP e costruisci la tua progressione giorno dopo giorno.",
+      "primaryButton": "Inizia a giocare",
+      "secondaryButton": "Scopri edu-games",
+      "benefits": {
+        "free": "Gratuito",
+        "interactive": "Giochi interattivi",
+        "progression": "Progressione"
+      }
+    },
+
+    "gamePreview": {
+      "title": "Quiz Matematica",
+      "question": "Risolvi l'operazione",
+      "footer": "Scegli il risultato corretto tra le opzioni",
+      "xpAvailable": "XP disponibili",
+      "newLevel": "Nuovo Livello!",
+      "level": "Livello 12",
+      "streak": "Streak",
+      "days": "{count} giorni"
+    },
+
+    "intro": {
+      "title": "E se studiare sembrasse un gioco?",
+      "description": "edu-games nasce da un'idea semplice: imparare è più efficace quando hai voglia di continuare. Per questo trasformiamo quiz e conoscenze in piccole sfide che ti fanno venire voglia di provarne ancora una."
+    },
+
+    "features": {
+      "label": "COME FUNZIONA",
+      "title1": "Tre passi.",
+      "title2": "Nuova abitudine",
+      "items": {
+        "learn": {
+          "title": "Impara giocando",
+          "description": "Trasforma lo studio in una sfida. Rispondi alle domande, supera i livelli e continua a migliorare."
+        },
+        "xp": {
+          "title": "Guadagna XP",
+          "description": "Ogni partita ti permette di ottenere esperienza e salire di livello."
+        },
+        "streak": {
+          "title": "Mantieni la streak",
+          "description": "Gioca ogni giorno e costruisci una serie di vittorie sempre più lunga."
+        }
+      }
+    },
+
+    "games": {
+      "label": "I TUOI GIOCHI",
+      "title1": "C'è sempre qualcosa",
+      "title2": "di nuovo da imparare.",
+      "viewAll": "Vedi tutti i giochi",
+      "discover": "Scopri il gioco"
+    },
+
+    "progression": {
+      "label": "LA TUA PROGRESSIONE",
+      "title1": "Ogni risposta",
+      "title2": "conta.",
+      "description": "Non giochi soltanto per ottenere una risposta corretta. Costruisci il tuo percorso, accumuli esperienza e puoi vedere concretamente quanto sei migliorato.",
+      "stats": {
+        "xp": {
+          "title": "XP",
+          "description": "Guadagna esperienza"
+        },
+        "badge": {
+          "title": "Badge",
+          "description": "Sblocca gli obbiettivi"
+        }
+      },
+      "level": "Il tuo livello",
+      "experience": "{current} / {max} XP",
+      "streak": "Streak",
+      "games": "Partite",
+      "badges": "Badges"
+    },
+
+    "cta": {
+      "title": "Pronto a mettere alla prova le tue conoscenze",
+      "description": "Una domanda alla volta. Una partita alla volta. Un livello alla volta.",
+      "button": "Inizia a giocare"
+    }
   }
 }

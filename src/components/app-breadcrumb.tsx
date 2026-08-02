@@ -8,14 +8,24 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import Link from "next/link";
+import { locales } from "@/types/locales";
 import { usePathname } from "next/navigation";
+
+function isUUID(value: string) {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
+    value,
+  );
+}
 
 export default function AppBreadcrumb({
   ...props
 }: React.ComponentProps<typeof Breadcrumb>) {
   const pathName = usePathname();
-  const segments = pathName.split("/").filter(Boolean);
+  const segments = pathName
+    .split("/")
+    .filter(Boolean)
+    .filter((segment) => !locales.includes(segment))
+    .filter((segment) => !isUUID(segment));
 
   return (
     <Breadcrumb {...props}>

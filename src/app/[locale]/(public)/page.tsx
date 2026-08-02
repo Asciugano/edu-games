@@ -21,29 +21,29 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { GameHeader } from "@/components/game-header";
+import { getTranslations } from "next-intl/server";
 
-const features = [
-  {
-    icon: Zap,
-    title: "Impara giocando",
-    description:
-      "Trasforma lo studio in una sfida. Rispondi alle domande, supera i livelli e continua a migliorare.",
-  },
-  {
-    icon: Trophy,
-    title: "Guadagna XP",
-    description:
-      "Ogni partita ti permette di ottenere esperienza e salire di livello.",
-  },
-  {
-    icon: Flame,
-    title: "Mantieni la streak",
-    description:
-      "Gioca ogni giorno e costruisci una serie di vittorie sempre più lunga.",
-  },
-];
+export default async function Home() {
+  const t = await getTranslations("landing");
 
-export default function Home() {
+  const features = [
+    {
+      icon: Zap,
+      title: t("features.items.learn.title"),
+      description: t("features.items.learn.description"),
+    },
+    {
+      icon: Trophy,
+      title: t("features.items.xp.title"),
+      description: t("features.items.xp.description"),
+    },
+    {
+      icon: Flame,
+      title: t("features.items.streak.title"),
+      description: t("features.items.streak.description"),
+    },
+  ];
+
   return (
     <>
       <LandingAnimations />
@@ -66,21 +66,21 @@ export default function Home() {
             <div>
               <div className="hero-badge mb-6 inline-flex items-center gap-2 rounded-full border bg-background/80 px-4 py-2 text-sm font-medium shadow-sm backdrop-blur">
                 <Sparkles className="size-4 text-yellow-500" />
-                Imparare non è mai stato così divertente
+                {t("hero.badge")}
               </div>
 
               <h1 className="hero-title max-w-3xl text-5xl font-black tracking-tight sm:text-6xl lg:text-7xl">
-                <span className="hero-title-line">Impara.</span>
+                <span className="hero-title-line">{t("hero.title1")}</span>
                 <br />
-                <span className="hero-title-line text-primary">Gioca.</span>
+                <span className="hero-title-line text-primary">
+                  {t("hero.title2")}
+                </span>
                 <br />
-                <span className="hero-title-line">Diventa più forte.</span>
+                <span className="hero-title-line">{t("hero.title3")}</span>
               </h1>
 
               <p className="hero-description mt-6 max-w-xl text-lg leading-8 text-muted-foreground sm:text-xl">
-                edu-games trasforma l&apos;apprendimento in una sfida. Gioca,
-                rispondi alle domande, guadagna XP e costruisci la tua
-                progressione giorno dopo giorno.
+                {t("hero.description")}
               </p>
 
               <div className="hero-actions mt-8 flex flex-col gap-3 sm:flex-row">
@@ -88,7 +88,7 @@ export default function Home() {
                   href="/dashboard/games"
                   className="group inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-bold text-primary-foreground shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl"
                 >
-                  Inizia a giocare
+                  {t("hero.primaryButton")}
                   <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
                 </Link>
 
@@ -96,24 +96,24 @@ export default function Home() {
                   href="/about"
                   className="inline-flex items-center justify-center gap-2 rounded-xl border px-6 py-3.5 font-bold transition hover:bg-muted"
                 >
-                  Scopri edu-games
+                  {t("hero.secondaryButton")}
                 </Link>
               </div>
 
               <div className="hero-benefits mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
                   <ShieldCheck className="size-4 text-primary" />
-                  Gratuito
+                  {t("hero.benefits.free")}
                 </div>
 
                 <div className="flex items-center gap-2">
                   <Gamepad2 className="size-4 text-primary" />
-                  Giochi interattivi
+                  {t("hero.benefits.interactive")}
                 </div>
 
                 <div className="flex items-center gap-2">
                   <Trophy className="size-4 text-primary" />
-                  Progressione
+                  {t("hero.benefits.progression")}
                 </div>
               </div>
             </div>
@@ -132,7 +132,7 @@ export default function Home() {
                 <Card className="mx-auto max-w-4xl">
                   <CardHeader className="border-b bg-muted/30">
                     <CardTitle className="flex items-center justify-center gap-2 text-2xl">
-                      Quiz Matematica
+                      {t("gamePreview.title")}
                     </CardTitle>
                   </CardHeader>
 
@@ -140,7 +140,7 @@ export default function Home() {
                     {/* Domanda */}
                     <div className="space-y-3 text-center">
                       <p className="text-sm font-medium text-muted-foreground">
-                        Risolvi l&apos;operazione
+                        {t("gamePreview.question")}
                       </p>
 
                       <div
@@ -181,7 +181,7 @@ export default function Home() {
 
                   <CardFooter className="justify-center border-t bg-muted/20">
                     <p className="text-xs text-muted-foreground">
-                      Scegli il risultato corretto tra le opzioni
+                      {t("gamePreview.footer")}
                     </p>
                   </CardFooter>
                 </Card>
@@ -191,7 +191,7 @@ export default function Home() {
                     <Zap className="size-5 text-yellow-500" />
 
                     <span className="text-sm font-semibold">
-                      XP disponibili
+                      {t("gamePreview.xpAvailable")}
                     </span>
                   </div>
 
@@ -209,10 +209,10 @@ export default function Home() {
 
                   <div>
                     <p className="text-xs text-muted-foreground">
-                      Nuovo livello!
+                      {t("gamePreview.newLevel")}
                     </p>
 
-                    <p className="font-black">Livello 12</p>
+                    <p className="font-black">{t("gamePreview.level")}</p>
                   </div>
                 </div>
               </div>
@@ -224,9 +224,13 @@ export default function Home() {
                   <Flame className="size-5 fill-orange-500 text-orange-500" />
 
                   <div>
-                    <p className="text-xs text-muted-foreground">Streak</p>
+                    <p className="text-xs text-muted-foreground">
+                      {t("gamePreview.streak")}
+                    </p>
 
-                    <p className="font-black">12 giorni</p>
+                    <p className="font-black">
+                      {t("gamePreview.days", { count: 12 })}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -245,14 +249,11 @@ export default function Home() {
             </div>
 
             <h2 className="text-3xl font-black tracking-tight sm:text-4xl">
-              E se studiare sembrasse un gioco?
+              {t("intro.title")}
             </h2>
 
             <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">
-              edu-games nasce da un&apos;idea semplice: imparare è più efficace
-              quando hai voglia di continuare. Per questo trasformiamo quiz e
-              conoscenze in piccole sfide che ti fanno venire voglia di provarne
-              ancora una.
+              {t("intro.description")}
             </p>
           </div>
         </section>
@@ -264,13 +265,17 @@ export default function Home() {
         <section className="features-section mx-auto max-w-7xl px-6 py-24 lg:px-8 ">
           <div className="max-w-2xl features-title">
             <p className="features-title-line font-bold text-primary">
-              COME FUNZIONA
+              {t("features.label")}
             </p>
 
             <h2 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">
-              <span className="features-title-line">Quattro passi.</span>
+              <span className="features-title-line">
+                {t("features.title1")}
+              </span>
               <br />
-              <span className="features-title-line">Una nuova abitudine.</span>
+              <span className="features-title-line">
+                {t("features.title2")}
+              </span>
             </h2>
           </div>
 
@@ -314,12 +319,12 @@ export default function Home() {
           <div className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
             <div className="games-heading flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
               <div>
-                <p className="font-bold text-primary">I TUOI GIOCHI</p>
+                <p className="font-bold text-primary">{t("games.label")}</p>
 
                 <h2 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">
-                  C&apos;è sempre qualcosa
+                  {t("games.title1")}
                   <br />
-                  di nuovo da imparare.
+                  {t("games.title2")}
                 </h2>
               </div>
 
@@ -327,7 +332,7 @@ export default function Home() {
                 href="/dashboard/games"
                 className="group inline-flex items-center gap-2 font-bold text-primary"
               >
-                Vedi tutti i giochi
+                {t("games.viewAll")}
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
@@ -360,7 +365,7 @@ export default function Home() {
 
                     <div className="mt-6 flex items-center gap-2 text-sm font-bold">
                       <Star className="size-4 fill-yellow-400 text-yellow-400" />
-                      Scopri il gioco
+                      {t("games.discover")}
                     </div>
                   </Link>
                 );
@@ -376,38 +381,40 @@ export default function Home() {
         <section className="progression-section mx-auto max-w-7xl px-6 py-24 lg:px-8">
           <div className="grid items-center gap-16 lg:grid-cols-2">
             <div className="progression-content">
-              <p className="font-bold text-primary">LA TUA PROGRESSIONE</p>
+              <p className="font-bold text-primary">{t("progression.label")}</p>
 
               <h2 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">
-                Ogni risposta
+                {t("progression.title1")}
                 <br />
-                conta.
+                {t("progression.title2")}
               </h2>
 
               <p className="mt-5 max-w-xl text-lg leading-8 text-muted-foreground">
-                Non giochi soltanto per ottenere una risposta corretta.
-                Costruisci il tuo percorso, accumuli esperienza e puoi vedere
-                concretamente quanto sei migliorato.
+                {t("progression.description")}
               </p>
 
               <div className="mt-8 grid grid-cols-2 gap-4">
                 <div className="rounded-2xl border p-5 transition hover:border-primary/40">
                   <Zap className="size-6 text-yellow-500" />
 
-                  <p className="mt-3 text-2xl font-black">XP</p>
+                  <p className="mt-3 text-2xl font-black">
+                    {t("progression.stats.xp.title")}
+                  </p>
 
                   <p className="mt-1 text-sm text-muted-foreground">
-                    Guadagna esperienza
+                    {t("progression.stats.xp.description")}
                   </p>
                 </div>
 
                 <div className="rounded-2xl border p-5 transition hover:border-primary/40">
                   <Trophy className="size-6 text-primary" />
 
-                  <p className="mt-3 text-2xl font-black">Badge</p>
+                  <p className="mt-3 text-2xl font-black">
+                    {t("progression.stats.badge.title")}
+                  </p>
 
                   <p className="mt-1 text-sm text-muted-foreground">
-                    Sblocca obiettivi
+                    {t("progression.stats.badge.description")}
                   </p>
                 </div>
               </div>
@@ -417,7 +424,7 @@ export default function Home() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-muted-foreground">
-                    Il tuo livello
+                    {t("progression.level")}
                   </p>
 
                   <p className="mt-1 text-3xl font-black">12</p>
@@ -430,7 +437,9 @@ export default function Home() {
 
               <div className="mt-8">
                 <div className="mb-2 flex justify-between text-sm">
-                  <span className="font-semibold">1.240 / 1.500 XP</span>
+                  <span className="font-semibold">
+                    {t("progression.experience", { current: 1.24, max: 1.5 })}
+                  </span>
 
                   <span className="text-muted-foreground">83%</span>
                 </div>
@@ -444,19 +453,25 @@ export default function Home() {
                 <div className="progression-stat rounded-xl bg-muted/50 p-4 text-center">
                   <p className="text-2xl font-black">12</p>
 
-                  <p className="mt-1 text-xs text-muted-foreground">Streak</p>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {t("progression.strak")}
+                  </p>
                 </div>
 
                 <div className="progression-stat rounded-xl bg-muted/50 p-4 text-center">
                   <p className="text-2xl font-black">47</p>
 
-                  <p className="mt-1 text-xs text-muted-foreground">Partite</p>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {t("progression.games")}
+                  </p>
                 </div>
 
                 <div className="progression-stat rounded-xl bg-muted/50 p-4 text-center">
                   <p className="text-2xl font-black">18</p>
 
-                  <p className="mt-1 text-xs text-muted-foreground">Badge</p>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {t("progression.badges")}
+                  </p>
                 </div>
               </div>
             </div>
@@ -473,19 +488,18 @@ export default function Home() {
               <Sparkles className="mx-auto size-10" />
 
               <h2 className="mt-6 text-3xl font-black tracking-tight sm:text-5xl">
-                Pronto a mettere alla prova le tue conoscenze?
+                {t("cta.title")}
               </h2>
 
               <p className="mx-auto mt-5 max-w-xl text-lg opacity-90">
-                Una domanda alla volta. Una partita alla volta. Un livello alla
-                volta.
+                {t("cta.description")}
               </p>
 
               <Link
                 href="/dashboard/games"
                 className="mt-8 inline-flex items-center gap-2 rounded-xl bg-background px-7 py-4 font-black text-foreground shadow-lg transition hover:-translate-y-0.5"
               >
-                Inizia a giocare
+                {t("cta.button")}
                 <ArrowRight className="size-5" />
               </Link>
             </div>
