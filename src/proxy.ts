@@ -1,42 +1,57 @@
 import { NextRequest, NextResponse } from "next/server";
+import createMiddleware from "next-intl/middleware";
+
 import { auth } from "@/lib/auth";
-import { updateLastActivity } from "./actions/user";
+import { updateLastActivity } from "@/actions/user";
+import { routing } from "@/i18n/routing";
+
+const intlMiddleware = createMiddleware(routing);
+
+function stripLocale(pathname: string) {
+  const regex = new RegExp(`^/(${routing.locales.join("|")})(?=/|$)`);
+
+  const stripped = pathname.replace(regex, "");
+  return stripped || "/";
+}
 
 export async function proxy(req: NextRequest) {
+  // Lascia gestire a next-intl redirect, rewrite e cookie
+  const response = intlMiddleware(req);
+
   const session = await auth.api.getSession({
     headers: req.headers,
   });
-
-  const { pathname } = req.nextUrl;
 
   if (session?.user) {
     await updateLastActivity(session.user.id);
   }
 
-  const publicRoutes = [
-    process.env.NEXT_PUBLIC_SIGN_IN_PAGE,
-    process.env.NEXT_PUBLIC_SIGN_UP_PAGE,
-  ];
+  const pathname = stripLocale(req.nextUrl.pathname);
 
-  if (
-    session &&
-    (pathname === process.env.NEXT_PUBLIC_SIGN_IN_PAGE ||
-      pathname === process.env.NEXT_PUBLIC_SIGN_UP_PAGE)
-  )
-    return NextResponse.redirect(
-      new URL(process.env.NEXT_PUBLIC_SIGN_IN_PAGE!, req.url),
-    );
+  const signIn = process.env.NEXT_PUBLIC_SIGN_IN_PAGE!;
+  const signUp = process.env.NEXT_PUBLIC_SIGN_UP_PAGE!;
 
-  if (publicRoutes.includes(pathname)) return NextResponse.next();
+  const publicRoutes = [signIn, signUp];
 
-  if (pathname.startsWith("/dashboard") && !session)
-    return NextResponse.redirect(
-      new URL(process.env.NEXT_PUBLIC_SIGN_IN_PAGE!, req.url),
-    );
+  // Utente già autenticato
+  if (session && publicRoutes.includes(pathname)) {
+    const url = req.nextUrl.clone();
+    url.pathname = "/dashboard";
 
-  return NextResponse.next();
+    return NextResponse.redirect(url);
+  }
+
+  // Dashboard protetta
+  if (pathname.startsWith("/dashboard") && !session) {
+    const url = req.nextUrl.clone();
+    url.pathname = signIn;
+
+    return NextResponse.redirect(url);
+  }
+
+  return response;
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*"],
+  matcher: "/((?!api|trpc|_next|_vercel|.*\\..*).*)",
 };

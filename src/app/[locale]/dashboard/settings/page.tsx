@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import AccountSection from "@/components/settings/account-section";
 import AppearanceSection from "@/components/settings/appearance-section";
 import LearningSection from "@/components/settings/learing-section";
+import Link from "next/link";
 
 const sections = [
   {
@@ -89,10 +90,10 @@ export default function SettingsPage() {
                     variant="ghost"
                     className="w-full justify-start gap-3"
                   >
-                    <a href={`#${section.id}`}>
+                    <Link href={`#${section.id}`}>
                       <section.icon className="size-4" />
                       {section.title}
-                    </a>
+                    </Link>
                   </Button>
                 ))}
               </nav>

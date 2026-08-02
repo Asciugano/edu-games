@@ -1,7 +1,7 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
-import { LogIn, LogOut, LayoutDashboard } from "lucide-react";
+import { LogIn, LogOut, LayoutDashboard, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import Image from "next/image";
@@ -40,6 +40,14 @@ export default function NavBar() {
           >
             <LayoutDashboard size={18} />
             <span>Dashboard</span>
+          </Link>
+
+          <Link
+            href="/dashboard/shop"
+            className="flex items-center gap-1 hover:text-primary transition"
+          >
+            <ShoppingCart size={18} />
+            <span>Negozio</span>
           </Link>
 
           {/* Login o Logout */}

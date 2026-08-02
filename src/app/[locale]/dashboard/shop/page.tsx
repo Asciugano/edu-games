@@ -1,6 +1,4 @@
 import prisma from "@/lib/prisma";
-import { ItemRarity, ShopItemType } from "../../../../generated/prisma/enums";
-import { Prisma } from "../../../../generated/prisma/browser";
 import { ShopSearchBar } from "@/components/shop/search";
 import { ShopItemCard } from "@/components/shop/item-card";
 import PageHeader from "@/components/page-header";
@@ -8,6 +6,11 @@ import StatCard from "@/components/stat-card";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { Coins } from "lucide-react";
+import {
+  ItemRarity,
+  ShopItemType,
+} from "../../../../../generated/prisma/enums";
+import { Prisma } from "../../../../../generated/prisma/client";
 
 type ShopPageProps = {
   searchParams: Promise<{
