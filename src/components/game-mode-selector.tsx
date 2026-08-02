@@ -9,7 +9,6 @@ import { Card, CardContent, CardHeader } from "./ui/card";
 import { useRouter } from "next/navigation";
 import { createGameSession } from "@/actions/game";
 import { games } from "@/types/games/games";
-import Link from "next/link";
 
 export default function GameModeSelector() {
   const [selectedMode, setSelectedMode] = useState<string>(GameMode.MIXED);
@@ -49,14 +48,12 @@ export default function GameModeSelector() {
         </CardContent>
       </Card>
       {selectedMode === GameMode.SINGLE && (
-        <Card className="cursor-pointer transition-all hover:shadow-lg">
+        <Card className="border-none bg-muted/20 shadow-none">
           <CardHeader>
-            <h2 className="text-xl font-semibold">I nostri Giochi</h2>
-            <p className="text-sm text-muted-foreground">
-              Scegli il gioco che preferisci
-            </p>
+            <h2 className="text-xl font-semibold">Modalità di gioco</h2>
+            <p className="text-sm text-muted-foreground">Scegli come giocare</p>
           </CardHeader>
-          <CardContent className="p-6 mt-12 grid gap-5 md:grid-cols-3">
+          <CardContent className="p-6 grid gap-5 md:grid-cols-3">
             {games.map((game) => {
               const Icon = game.icon;
 
