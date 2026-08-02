@@ -19,6 +19,7 @@ import AccountSection from "@/components/settings/account-section";
 import AppearanceSection from "@/components/settings/appearance-section";
 import LearningSection from "@/components/settings/learing-section";
 import Link from "next/link";
+import { LanguageSection } from "@/components/settings/language-section";
 
 const sections = [
   {
@@ -61,6 +62,8 @@ const sections = [
     id: "language",
     title: "Language",
     icon: Languages,
+    subtitle: "Configura la tua lingua preferita",
+    content: <LanguageSection />,
   },
   {
     id: "about",
